@@ -7,9 +7,7 @@ I participated in the Kaggle challenge, where the task was to build a predictive
 1. Create an accurate fraud detection model based on historical claim data.
 2. Analyze and explain the key drivers of fraudulent claims to help non-technical stakeholders understand the findings.
 
-Fraud detection accuracy was critical, and the competition emphasized the use of the **weighted F1 score** for evaluation, as it balances precision and recall in detecting fraudulent claims.  
-You can learn more about the F1 metric here:  
-[scikit-learn F1 Score Documentation](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html)
+Fraud detection accuracy was critical, and the competition emphasized the use of the **weighted F1 score** for evaluation, as it balances precision and recall in detecting fraudulent claims.
 
 ## **Dataset Description**
 The dataset represents a sample of first-party physical damage claims referred to Travelers Insurance's fraud detection team between **2015 and 2016**. The claims data includes a variety of features related to drivers, vehicles, and claims.
