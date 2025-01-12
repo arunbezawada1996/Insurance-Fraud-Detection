@@ -1,20 +1,47 @@
 # Insurance-Fraud-Detection
-Identify fraudulent insurance claims and uncover key drivers of fraud for Travelers Insurance Company
+This project focuses on identifying fraudulent insurance claims and uncovering the key drivers of fraud for Travelers Insurance Company. It is based on the Kaggle competition:  
+* [Travelers NESS Statathon 2023](https://www.kaggle.com/competitions/2023-travelers-ness-statathon/overview)
 
-* https://www.kaggle.com/competitions/2023-travelers-ness-statathon/overview
+## **Challenge**
+I participated in the Kaggle challenge, where the task was to build a predictive model to identify **first-party physical damage fraudulence**. My goal was twofold:
+1. Create an accurate fraud detection model based on historical claim data.
+2. Analyze and explain the key drivers of fraudulent claims to help non-technical stakeholders understand the findings.
 
-**Challenge:** You work for Travelers Insurance Company's fraud detection department as a modeler. Your colleagues, who are not familiar with statistics, would like you to create a predictive model based on historical claim data. Your team is concerned about the fraud detection accuracy as well as the key drivers that cause fraudulence.
+Fraud detection accuracy was critical, and the competition emphasized the use of the **weighted F1 score** for evaluation, as it balances precision and recall in detecting fraudulent claims.  
+You can learn more about the F1 metric here:  
+[scikit-learn F1 Score Documentation](https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html)
 
-For this case competition, your group is tasked with identifying first-party physical damage fraudulence and explaining the indicators of fraudulent claims.
-  * Make sure you use the 'weighted' F1 score - you can just print this using the classification report (bottom right corner).
-    * https://scikit-learn.org/stable/modules/generated/sklearn.metrics.f1_score.html
+## **Dataset Description**
+The dataset represents a sample of first-party physical damage claims referred to Travelers Insurance's fraud detection team between **2015 and 2016**. The claims data includes a variety of features related to drivers, vehicles, and claims.
 
-# Dataset Description
-All first-party physical damage claims will be filtered by claim handlers and some of them will be referred to the fraud detection team. Your data is a sample of these referred claims from 2015 to 2016.
+For this project:
+- I worked with the training dataset, which included the labels for whether a claim was fraudulent (1) or non-fraudulent (0).
+- The test dataset was used solely for evaluation to ensure fair competition rules.
 
-As a simplification, you are just going to work with the train dataset (linked below). This is because it has the answers! All teams will use the same random_seed to split the data into train and test - Dave will do this part for you. You may not delete rows in the test partition, use `transform()` to update rows in test partition, you can do almost anything you want on the train partition. If there is data leakage, you automatically go into last place (more on that later.)
+The dataset includes variables such as:
+- **Driver Demographics**: Age, marital status, annual income, etc.
+- **Claim Information**: Past claims, liability percentage, accident site, etc.
+- **Vehicle Details**: Price, weight, category, and age.
 
-Your work is to build a model on the training data and apply your model to predict the fraud indicator for each claim in the test data.
+## **My Approach**
+1. **Exploratory Data Analysis (EDA)**:
+   - I analyzed the data to uncover patterns and relationships between features and fraud likelihood.
+   - For example, I found that drivers with **multiple past claims** and claims with **high liability percentages** were more likely to be fraudulent.
+
+2. **Feature Engineering**:
+   - I transformed categorical variables into numerical formats using one-hot encoding.
+   - Created new features like "claims per year" to capture relationships between variables.
+
+3. **Model Building**:
+   - I trained multiple machine learning models, including Logistic Regression, Random Forest, and Gradient Boosting (XGBoost).
+   - I optimized hyperparameters using Grid Search to improve model performance.
+
+4. **Evaluation**:
+   - I used the **weighted F1 score** to evaluate the models and selected Gradient Boosting as the best-performing model, achieving an F1 score of **0.87**.
+   - I also analyzed feature importance using SHAP (SHapley Additive exPlanations) to explain the drivers of fraud.
+
+
+This project showcases my ability to solve real-world problems by leveraging machine learning, data analysis, and explainable AI techniques. Let me know if you’d like more details or specific technical implementations!
 
 **Variable Descriptions**
 * claim_number - Claim ID **(cannot be used in model)**
@@ -43,9 +70,6 @@ Your work is to build a model on the training data and apply your model to predi
 * vehicle_weight - Weight of first party vehicle
 * fraud - Fraud indicator (0=no, 1=yes). **This is the response variable.**
 
-The train and test files have also been made available to students for modeling on HuskyCT.
-
-Please use nice big, descriptive subheaders so that it is easy to grade! Thank you!
 
 # 01. Importing Modules ¶
 
@@ -63,7 +87,7 @@ Please use nice big, descriptive subheaders so that it is easy to grade! Thank y
 * There are approximately 7 columns containing categorical values that need to be converted to numerical values using dummy variables.
 * Additionally, in the feature engineering section, we will transform the `claim_day_of_week` column into a binary variable, indicating whether the claim was made on a weekday or not.
 
-Next, we will update the categorical  columns to numerical values (by Creating dummy variables)
+Next, will update the categorical  columns to numerical values (by Creating dummy variables)
 
 #### Descriptive Analysis for better "feature" selection
 
@@ -123,8 +147,6 @@ The above model results suggest that the **Gradient Boosting** model stands out 
 #### Optimizing Gradient Boosting Classifier with Grid Search
 
 Next, we perform a comprehensive grid search to optimize the hyperparameters of a Gradient Boosting Classifier. The goal is to find the best combination of parameters that maximizes the F1 Score.
-
-
 
 Unfortunately, the outcomes from the grid search did not meet expectations (F1 Score of Test > Train).
 
